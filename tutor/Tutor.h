@@ -19,7 +19,6 @@ constexpr auto g_TutorSound =
 {
     "events/enemy_died.wav",
     "events/friend_died.wav",
-    "events/task_complete.wav",
     "events/tutor_msg.wav"
 };
 

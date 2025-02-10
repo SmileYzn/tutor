@@ -207,6 +207,26 @@ void CTutor::TutorText(edict_t *pEntity, int Color, int Time, const char *Format
                 g_engfuncs.pfnMessageEnd();
             }
 
+
+            switch (Color)
+            {
+                case 1:
+                {
+                    g_engfuncs.pfnEmitSound(pEntity, CHAN_ITEM, "events/friend_died.wav", VOL_NORM, ATTN_NORM, 0, 120);
+                    break;
+                }
+                case 2:
+                {
+                    g_engfuncs.pfnEmitSound(pEntity, CHAN_ITEM, "events/enemy_died.wav", VOL_NORM, ATTN_NORM, 0, 85);
+                    break;
+                }
+                default:
+                {
+                    g_engfuncs.pfnEmitSound(pEntity, CHAN_ITEM, "events/tutor_msg.wav", VOL_NORM, ATTN_NORM, 0, 100);
+                    break;
+                }
+            }
+
             if (Time > 0)
             {
                 this->m_TutorTimeLeft[ENTINDEX(pEntity)] = (gpGlobals->time + static_cast<float>(Time));
