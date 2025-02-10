@@ -21,12 +21,6 @@
 // System
 #include <osconfig.h>
 
-// C++
-#include <map>
-#include <vector>
-#include <string>
-#include <array>
-
 // CSSDK
 #include <extdll.h>
 #include <eiface.h>
