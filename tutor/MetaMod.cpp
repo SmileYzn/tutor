@@ -4,12 +4,12 @@
 plugin_info_t Plugin_info =
 {
 	META_INTERFACE_VERSION,
-	"Stub Plugin",
+	"CZ Tutor",
 	"0.0.1",
 	__DATE__,
 	"SmileY",
-	"https://github.com/SmileYzn/stub",
-	"STUB",
+	"https://github.com/SmileYzn/tutor",
+	"TUTOR",
 	PT_STARTUP,
 	PT_ANYTIME,
 };
@@ -83,11 +83,18 @@ C_DLLEXPORT int GetEntityAPI2(DLL_FUNCTIONS *pFunctionTable, int *interfaceVersi
 {
 	memset(&g_DLL_FunctionTable_Pre, 0, sizeof(DLL_FUNCTIONS));
 
-	// Funtion hooks here
+	g_DLL_FunctionTable_Pre.pfnSpawn = DLL_PRE_Spawn;
 
 	memcpy(pFunctionTable, &g_DLL_FunctionTable_Pre, sizeof(DLL_FUNCTIONS));
 
 	return 1;
+}
+
+int DLL_PRE_Spawn(edict_t* pEntity)
+{
+	gTutor.Spawn();
+
+	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 #pragma endregion
 
@@ -98,11 +105,36 @@ C_DLLEXPORT int GetEntityAPI2_Post(DLL_FUNCTIONS *pFunctionTable, int *interface
 {
 	memset(&g_DLL_FunctionTable_Post, 0, sizeof(DLL_FUNCTIONS));
 
-	// Funtion hooks here
+	g_DLL_FunctionTable_Post.pfnServerActivate = DLL_POST_ServerActivate;
+
+	g_DLL_FunctionTable_Post.pfnServerDeactivate = DLL_POST_ServerDeactivate;
+
+	g_DLL_FunctionTable_Post.pfnStartFrame = DLL_POST_StartFrame;
 
 	memcpy(pFunctionTable, &g_DLL_FunctionTable_Post, sizeof(DLL_FUNCTIONS));
 
 	return 1;
+}
+
+void DLL_POST_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax)
+{
+	gTutor.ServerActivate();
+
+	RETURN_META(MRES_IGNORED);
+}
+
+void DLL_POST_ServerDeactivate()
+{
+	gTutor.ServerDeactivate();
+	
+	RETURN_META(MRES_IGNORED);
+}
+
+void DLL_POST_StartFrame()
+{
+	gTutor.StartFrame();
+	
+	RETURN_META(MRES_IGNORED);
 }
 #pragma endregion
 

@@ -47,5 +47,5 @@
 #include "ReAPI.h"
 #include "ReGameDLL.h"
 
-// Stub
-#include "Stub.h"
+// Tutor
+#include "Tutor.h"
